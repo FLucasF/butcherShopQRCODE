@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Carne</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Adicionar Carne</h2>
+            <p class="lead">Preencha os detalhes abaixo para adicionar uma nova carne ao sistema.</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-7 col-lg-8 mx-auto">
+                <h4 class="mb-3">Detalhes da Carne</h4>
+                <form action="/carnes" method="post" class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="tipo" class="form-label">Tipo da Carne</label>
+                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Ex.: Bovino" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira o tipo da carne.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="origem" class="form-label">Origem</label>
+                            <input type="text" class="form-control" id="origem" name="origem" placeholder="Ex.: Fazenda X" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira a origem da carne.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="corte" class="form-label">Corte</label>
+                            <input type="text" class="form-control" id="corte" name="corte" placeholder="Ex.: Picanha" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira o tipo de corte.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="validade" class="form-label">Validade</label>
+                            <input type="date" class="form-control" id="validade" name="validade" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira a data de validade.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="bioma" class="form-label">Bioma</label>
+                            <input type="text" class="form-control" id="bioma" name="bioma" placeholder="Ex.: Amazônia" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira o bioma de origem.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="idadeAbate" class="form-label">Idade do Abate (meses)</label>
+                            <input type="number" class="form-control" id="idadeAbate" name="idadeAbate" placeholder="Ex.: 24" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira a idade de abate.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="marmoreio" class="form-label">Nível de Marmoreio</label>
+                            <input type="text" class="form-control" id="marmoreio" name="marmoreio" placeholder="Ex.: Alto" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira o nível de marmoreio.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="certificacaoQualidade" class="form-label">Certificação de Qualidade</label>
+                            <input type="text" class="form-control" id="certificacaoQualidade" name="certificacaoQualidade" placeholder="Ex.: SIF" required>
+                            <div class="invalid-feedback">
+                                Por favor, insira a certificação de qualidade.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Adicionar Carne</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">© 2025 Butcher Shop</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
