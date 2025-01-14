@@ -1,7 +1,8 @@
-package  ufpb.ayty.dao;
+package ufpb.ayty.dao;
 
 import ufpb.ayty.config.DatabaseConfig;
 import ufpb.ayty.model.Carne;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +12,10 @@ import java.util.List;
 
 public class CarneDAO {
 
+    // Salvar carne
     public int saveCarne(Carne carne) {
-        String query = "INSERT INTO carne (tipo, origem, corte, validade, bioma, idade_abate, marmoreio, certificacao_qualidade, qr_code_url) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO carne (tipo, origem, corte, validade, bioma, idade_abate, marmoreio, certificacao_qualidade, qr_code_url, dicas_preparo) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
@@ -26,6 +28,7 @@ public class CarneDAO {
             stmt.setString(7, carne.getMarmoreio());
             stmt.setString(8, carne.getCertificacaoQualidade());
             stmt.setString(9, carne.getQrCodeUrl());
+            stmt.setString(10, carne.getDicasPreparo());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -38,9 +41,10 @@ public class CarneDAO {
         return -1;
     }
 
+    // Atualizar carne
     public boolean updateCarne(Carne carne) {
         String query = "UPDATE carne SET tipo = ?, origem = ?, corte = ?, validade = ?, bioma = ?, " +
-                "idade_abate = ?, marmoreio = ?, certificacao_qualidade = ? WHERE id = ?";
+                "idade_abate = ?, marmoreio = ?, certificacao_qualidade = ?, dicas_preparo = ? WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -52,7 +56,9 @@ public class CarneDAO {
             stmt.setInt(6, carne.getIdadeAbate());
             stmt.setString(7, carne.getMarmoreio());
             stmt.setString(8, carne.getCertificacaoQualidade());
-            stmt.setInt(9, carne.getId());
+            stmt.setString(9, carne.getDicasPreparo());
+            stmt.setInt(10, carne.getId());
+
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -96,6 +102,7 @@ public class CarneDAO {
                 carne.setMarmoreio(rs.getString("marmoreio"));
                 carne.setCertificacaoQualidade(rs.getString("certificacao_qualidade"));
                 carne.setQrCodeUrl(rs.getString("qr_code_url"));
+                carne.setDicasPreparo(rs.getString("dicas_preparo"));
                 return carne;
             }
 
@@ -105,6 +112,7 @@ public class CarneDAO {
         return null;
     }
 
+    // Listar todas as carnes
     public List<Carne> getAll() {
         List<Carne> carnes = new ArrayList<>();
         String query = "SELECT * FROM carne";
@@ -125,6 +133,7 @@ public class CarneDAO {
                 carne.setMarmoreio(rs.getString("marmoreio"));
                 carne.setCertificacaoQualidade(rs.getString("certificacao_qualidade"));
                 carne.setQrCodeUrl(rs.getString("qr_code_url"));
+                carne.setDicasPreparo(rs.getString("dicas_preparo"));
 
                 carnes.add(carne);
             }

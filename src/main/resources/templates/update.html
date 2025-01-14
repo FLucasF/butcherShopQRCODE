@@ -18,7 +18,11 @@
         <div class="row g-5">
             <div class="col-md-7 col-lg-8 mx-auto">
                 <h4 class="mb-3">Detalhes da Carne</h4>
-                <form th:action="@{'/carne/' + ${carne.id}}" method="post" class="needs-validation" novalidate>
+                <!-- Atualizar a ação do formulário -->
+                <form th:action="@{'/carne/editar/' + ${carne.id}}" method="post" class="needs-validation" novalidate>
+                    <!-- Campo oculto para enviar o ID -->
+                    <input type="hidden" name="id" th:value="${carne.id}">
+
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="tipo" class="form-label">Tipo da Carne</label>

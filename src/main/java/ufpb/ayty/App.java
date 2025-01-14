@@ -5,7 +5,9 @@ import io.javalin.http.staticfiles.Location;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import ufpb.ayty.controller.AuthController;
 import ufpb.ayty.controller.CarneController;
+import ufpb.ayty.middleware.AuthMiddleware;
 
 public class App {
 
@@ -29,9 +31,14 @@ public class App {
             config.fileRenderer(new JavalinThymeleaf(templateEngine));
         }).start(7000);
 
+        // Adicionar middleware de autenticação às rotas protegidas
+        app.before("/carne/*", new AuthMiddleware());
+
         // Registrar rotas
-        CarneController carneController = new CarneController();
-        carneController.registerRoutes(app);
+        new AuthController().registerRoutes(app);
+        new CarneController().registerRoutes(app);
+
+
     }
 
     public static void main(String[] args) {
