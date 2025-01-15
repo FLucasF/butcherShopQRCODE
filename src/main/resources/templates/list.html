@@ -1,69 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de Carnes</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-</head>
-
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout('Lista de Carnes', ~{::section})}">
 <body>
-<div class="container mt-5" style="max-width: 95%; font-size: 14px;">
-    <h1 class="text-center mb-4" style="font-size: 2.5rem;">Lista de Carnes</h1>
-    <div class="mb-4 text-center">
-        <a href="/carne/adicionar" class="btn btn-success btn-lg" style="font-size: 16px; padding: 10px 20px;">Adicionar Carne</a>
+<section>
+    <h1 class="text-center mt-4">Lista de Carnes</h1>
+    <div class="text-center mb-4">
+        <a href="/carne/adicionar" class="btn btn-success">Adicionar Carne</a>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-bordered table-striped" style="font-size: 13px; line-height: 1.5;">
-                <thead class="thead-dark" style="background-color: #343a40; color: white;">
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Origem</th>
-                    <th>Corte</th>
-                    <th>Validade</th>
-                    <th>Bioma</th>
-                    <th>Idade de Abate</th>
-                    <th>Marmoreio</th>
-                    <th>Certificação</th>
-                    <th>Dicas de Preparo</th>
-                    <th>QR Code URL</th>
-                    <th>Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="carne : ${carnes}">
-                    <td th:text="${carne.id}"></td>
-                    <td th:text="${carne.tipo}"></td>
-                    <td th:text="${carne.origem}"></td>
-                    <td th:text="${carne.corte}"></td>
-                    <td th:text="${carne.validade}"></td>
-                    <td th:text="${carne.bioma}"></td>
-                    <td th:text="${carne.idadeAbate}"></td>
-                    <td th:text="${carne.marmoreio}"></td>
-                    <td th:text="${carne.certificacaoQualidade}"></td>
-                    <td th:text="${carne.dicasPreparo}"></td>
-                    <td>
-                        <a th:href="${carne.qrCodeUrl}" target="_blank" th:text="${carne.qrCodeUrl}"></a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/carne/editar/' + ${carne.id}}" class="btn btn-primary btn-sm">Editar</a>
-                        <a th:href="@{'/carne/excluir/' + ${carne.id}}" class="btn btn-danger btn-sm">Excluir</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Origem</th>
+            <th>Corte</th>
+            <th>Validade</th>
+            <th>Bioma</th>
+            <th>Idade Abate</th>
+            <th>Marmoreio</th>
+            <th>Certificação</th>
+            <th>Dicas Preparo</th>
+            <th>QR Code</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="carne : ${carnes}">
+            <td th:text="${carne.id}"></td>
+            <td th:text="${carne.tipo}"></td>
+            <td th:text="${carne.origem}"></td>
+            <td th:text="${carne.corte}"></td>
+            <td th:text="${carne.validade}"></td>
+            <td th:text="${carne.bioma}"></td>
+            <td th:text="${carne.idadeAbate}"></td>
+            <td th:text="${carne.marmoreio}"></td>
+            <td th:text="${carne.certificacaoQualidade}"></td>
+            <td th:text="${carne.dicasPreparo}"></td>
+            <td><a th:href="${carne.qrCodeUrl}" target="_blank" th:text="${carne.qrCodeUrl}"></a></td>
+            <td>
+                <a th:href="@{'/carne/editar/' + ${carne.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/carne/excluir/' + ${carne.id}}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 </body>
-
 </html>

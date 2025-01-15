@@ -31,14 +31,12 @@ public class App {
             config.fileRenderer(new JavalinThymeleaf(templateEngine));
         }).start(7000);
 
-        // Adicionar middleware de autenticação às rotas protegidas
-        app.before("/carne/*", new AuthMiddleware());
+        // Adicionar o middleware de autenticação
+        app.before("/*", new AuthMiddleware());
 
         // Registrar rotas
         new AuthController().registerRoutes(app);
         new CarneController().registerRoutes(app);
-
-
     }
 
     public static void main(String[] args) {

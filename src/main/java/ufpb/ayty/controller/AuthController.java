@@ -9,7 +9,7 @@ public class AuthController {
     private final UserService userService = new UserService();
 
     public void registerRoutes(Javalin app) {
-        // Rota inicial
+
         app.get("/", ctx -> {
             String token = ctx.cookie("token");
             if (token != null && JwtService.validateToken(token)) {
@@ -19,7 +19,6 @@ public class AuthController {
             }
         });
 
-        // Rota de login
         app.get("/login", ctx -> {
             ctx.render("login.html");
         });
@@ -37,7 +36,6 @@ public class AuthController {
             }
         });
 
-        // Rota de registro
         app.get("/register", ctx -> {
             ctx.render("register.html");
         });
@@ -54,17 +52,21 @@ public class AuthController {
             }
 
             try {
-                User newUser = new User(); // Criar o objeto User
+                User newUser = new User();
                 newUser.setName(name);
                 newUser.setEmail(email);
                 newUser.setPassword(password);
 
-                userService.register(newUser); // Passar o objeto User
-                ctx.redirect("/login"); // Redireciona para a tela de login
+                userService.register(newUser);
+                ctx.redirect("/login");
             } catch (Exception e) {
                 ctx.status(400).result(e.getMessage());
             }
         });
 
+        app.get("/logout", ctx -> {
+            ctx.removeCookie("token"); // Remove o cookie de autenticação
+            ctx.redirect("/login");   // Redireciona para a página de login
+        });
     }
 }

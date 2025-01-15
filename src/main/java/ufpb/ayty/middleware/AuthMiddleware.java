@@ -4,33 +4,22 @@ import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import ufpb.ayty.service.JwtService;
 
-import java.util.Optional;
-
 public class AuthMiddleware implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
-        // Obtém o token do cabeçalho Authorization
-        String token = ctx.header("Authorization");
-
-        // Verifica se o token está presente e possui o formato correto
-        if (token == null || !token.startsWith("Bearer ")) {
-            ctx.status(401).result("Token não encontrado ou inválido.");
-            return; // Interrompe o pipeline
+        // Rotas públicas que não precisam de autenticação
+        String path = ctx.path();
+        if (path.equals("/login") || path.equals("/register") || path.equals("/")) {
+            return; // Permite acesso sem autenticação
         }
 
-        // Remove o prefixo "Bearer " do token
-        token = token.replace("Bearer ", "");
+        // Obtém o token do cookie
+        String token = ctx.cookie("token");
 
-        // Valida o token e extrai o email do usuário
-        Optional<String> userEmail = JwtService.getUserEmailFromToken(token);
-
-        if (userEmail.isEmpty()) {
-            ctx.status(401).result("Token inválido ou expirado.");
-            return; // Interrompe o pipeline
+        if (token == null || !JwtService.validateToken(token)) {
+            // Se o token é inválido ou ausente, redireciona para a página de login
+            ctx.redirect("/login");
         }
-
-        // Adiciona o email do usuário no contexto para uso posterior
-        ctx.attribute("userEmail", userEmail.get());
     }
 }
